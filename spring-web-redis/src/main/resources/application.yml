@@ -21,8 +21,6 @@ management:
     configprops:
       show-values: always
 spring:
-#    main:
-#      keep-alive: true
   threads:
     virtual:
       enabled: true

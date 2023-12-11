@@ -1,4 +1,4 @@
-package tech.luiscunha.springwebredis.pokemon.controller;
+package tech.luiscunha.springwebredis.pokemon;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
+import tech.luiscunha.springwebredis.pokemon.model.Pokemon;
 
 @RestController
 @RequestMapping("api/v1/pokemon")
@@ -18,11 +19,12 @@ public class PokemonController {
 
 	@GetMapping(value = "/{pokemonName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@Cacheable(value = "pokemon", key = "#pokemonName")
-	public String getPokemon(@PathVariable String pokemonName) {
-		return restClient.get()
+	public Pokemon getPokemon(@PathVariable String pokemonName) {
+		Pokemon pokemon = restClient.get()
 				.uri("/{pokemonName}", pokemonName)
 				.retrieve()
-				.body(String.class);
+				.body(Pokemon.class);
+		return pokemon;
 	}
 
 }

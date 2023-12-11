@@ -10,6 +10,7 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import tech.luiscunha.springwebredis.pokemon.model.Pokemon;
 
 import java.time.Duration;
 
@@ -27,7 +28,7 @@ public class Application {
 	public RedisCacheManager cacheManager(final RedisConnectionFactory connectionFactory) {
 		return RedisCacheManager.builder(connectionFactory)
 				.cacheDefaults(defaultCacheConfig()
-						.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new Jackson2JsonRedisSerializer<>(String.class)))
+						.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new Jackson2JsonRedisSerializer<>(Pokemon.class)))
 						.computePrefixWith(cacheName -> cacheName + ":")
 						.entryTtl(Duration.ofMinutes(60))
 						.disableCachingNullValues()

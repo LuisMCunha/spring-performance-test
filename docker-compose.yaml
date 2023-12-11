@@ -2,7 +2,7 @@ version: "3.8"
 services:
   # this is the jvm image, available after running "bootBuildImage" gradle task
   web-api-jvm:
-    container_name: web-api-jvm
+    container_name: web-api-jvm-virtual-threads
     image: spring-web-redis-jvm:0.1
     environment:
       PORT: 8080
@@ -20,7 +20,7 @@ services:
       - redis-db
   # this is the graalvm native image, available after running "bootBuildImage" gradle task
   web-api-native:
-    container_name: web-api-native
+    container_name: web-api-native-virtual-threads
     image: spring-web-redis-native:0.1
     environment:
       PORT: 8081
