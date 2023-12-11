@@ -1,0 +1,44 @@
+spring:
+  profiles:
+    active: dev
+---
+management:
+  info:
+    java:
+      enabled: true
+    build:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    env:
+      show-values: always
+    health:
+      enabled: true
+      show-details: always
+    configprops:
+      show-values: always
+spring:
+#    main:
+#      keep-alive: true
+  threads:
+    virtual:
+      enabled: true
+  config:
+    activate:
+      on-profile: dev
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password:
+server:
+  tomcat:
+    threads:
+      max: 10
+  port: ${PORT:8080}
+  error:
+    include-stacktrace: always
+    include-message: always
