@@ -2,8 +2,8 @@ version: "3.8"
 services:
   # this is the jvm image, available after running "bootBuildImage" gradle task
   web-api-jvm:
-    container_name: web-api-jvm
-    image: spring-web-redis-jvm:0.1
+    container_name: web-api-jvm-virtual-threads
+    image: luismcunha/spring-web-redis-jvm:0.1
     environment:
       PORT: 8080
       REDIS_HOST: redis-db
@@ -13,15 +13,15 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '4'
     networks:
       - spring-redis-network
     depends_on:
       - redis-db
   # this is the graalvm native image, available after running "bootBuildImage" gradle task
   web-api-native:
-    container_name: web-api-native
-    image: spring-web-redis-native:0.1
+    container_name: web-api-native-virtual-threads
+    image: luismcunha/spring-web-redis-native:0.1
     environment:
       PORT: 8081
       REDIS_HOST: redis-db
@@ -29,20 +29,20 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '4'
     ports:
       - "8081:8081"
     networks:
       - spring-redis-network
     depends_on:
       - redis-db
-
+ 
   # this is the jvm image, available after running "bootBuildImage" gradle task
   web-api-jvm-os-threads:
     container_name: web-api-jvm-os-threads
-    image: spring-web-redis-jvm-os-threads:0.1
+    image: luismcunha/spring-web-redis-jvm-os-threads:0.1
     environment:
-      PORT: 8084
+      PORT: 8082
       REDIS_HOST: redis-db
       REDIS_PORT: 6379
     ports:
@@ -50,7 +50,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '4'
     networks:
       - spring-redis-network
     depends_on:
@@ -58,9 +58,9 @@ services:
   # this is the native image, available after running "bootBuildImage" gradle task
   web-api-native-os-threads:
     container_name: web-api-native-os-threads
-    image: spring-web-redis-native-os-threads:0.1
+    image: luismcunha/spring-web-redis-native-os-threads:0.1
     environment:
-      PORT: 8085
+      PORT: 8083
       REDIS_HOST: redis-db
       REDIS_PORT: 6379
     ports:
@@ -68,7 +68,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '4'
     networks:
       - spring-redis-network
     depends_on:
@@ -76,9 +76,9 @@ services:
   # this is the jvm image, available after running "bootBuildImage" gradle task
   webflux-api-jvm:
     container_name: webflux-api-jvm
-    image: spring-webflux-redis-jvm:0.1
+    image: luismcunha/spring-webflux-redis-jvm:0.1
     environment:
-      PORT: 8082
+      PORT: 8084
       REDIS_HOST: redis-db
       REDIS_PORT: 6379
     ports:
@@ -86,7 +86,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '4'
     networks:
       - spring-redis-network
     depends_on:
@@ -94,9 +94,9 @@ services:
   # this is the graalvm native image, available after running "bootBuildImage" gradle task
   webflux-api-native:
     container_name: webflux-api-native
-    image: spring-webflux-redis-native:0.1
+    image: luismcunha/spring-webflux-redis-native:0.1
     environment:
-      PORT: 8083
+      PORT: 8085
       REDIS_HOST: redis-db
       REDIS_PORT: 6379
     ports:
@@ -104,7 +104,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '4'
     networks:
       - spring-redis-network
     depends_on:
