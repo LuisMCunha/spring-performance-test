@@ -18,7 +18,7 @@ public class GenerationVi implements Serializable {
 	private OmegarubyAlphasapphire omegarubyAlphasapphire;
 	@JsonProperty("x-y")
 	private XY xY;
-	private final static long serialVersionUID = 4554757702081679544L;
+	private static final long serialVersionUID = 4554757702081679544L;
 
 	@JsonProperty("omegaruby-alphasapphire")
 	public OmegarubyAlphasapphire getOmegarubyAlphasapphire() {

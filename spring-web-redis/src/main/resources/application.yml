@@ -36,7 +36,7 @@ server:
   tomcat:
     threads:
       max: 10
-  port: ${PORT:8080}
+  port: ${PORT:8085}
   error:
     include-stacktrace: always
     include-message: always

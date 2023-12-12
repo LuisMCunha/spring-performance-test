@@ -20,11 +20,10 @@ public class PokemonController {
 	@GetMapping(value = "/{pokemonName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@Cacheable(value = "pokemon", key = "#pokemonName")
 	public Pokemon getPokemon(@PathVariable String pokemonName) {
-		Pokemon pokemon = restClient.get()
+		return restClient.get()
 				.uri("/{pokemonName}", pokemonName)
 				.retrieve()
 				.body(Pokemon.class);
-		return pokemon;
 	}
 
 }

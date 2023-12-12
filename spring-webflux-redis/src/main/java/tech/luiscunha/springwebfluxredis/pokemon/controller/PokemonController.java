@@ -17,22 +17,23 @@ import tech.luiscunha.springwebfluxredis.pokemon.service.PokemonService;
 @RequestMapping("api/v1/pokemon")
 public class PokemonController {
 
-	private final WebClient webClient = WebClient.builder()
-			.baseUrl("https://pokeapi.co/api/v2/pokemon")
-			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-			.build();
+  private final WebClient webClient = WebClient.builder()
+      .baseUrl("https://pokeapi.co/api/v2/pokemon")
+      .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+      .build();
 
-	private final PokemonService pokemonService;
+  private final PokemonService pokemonService;
 
-	@GetMapping(value = "/{pokemonName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Mono<Pokemon> getPokemon(@PathVariable String pokemonName) {
+  @GetMapping(value = "/{pokemonName}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Mono<Pokemon> getPokemon(@PathVariable String pokemonName) {
 
-		return pokemonService.retrieveCachedPokemon(pokemonName)
-				.switchIfEmpty(webClient.get()
-						.uri("/{pokemonName}", pokemonName)
-						.retrieve()
-						.bodyToMono(Pokemon.class)
-						.flatMap(pokemonResponse -> pokemonService.cachePokemon(pokemonName, pokemonResponse))
-				);
-	}
+    return pokemonService.retrieveCachedPokemon(pokemonName)
+        .switchIfEmpty(
+            webClient.get()
+                .uri("/{pokemonName}", pokemonName)
+                .retrieve()
+                .bodyToMono(Pokemon.class)
+                .flatMap(pokemonResponse -> pokemonService.cachePokemon(pokemonName, pokemonResponse))
+        );
+  }
 }
