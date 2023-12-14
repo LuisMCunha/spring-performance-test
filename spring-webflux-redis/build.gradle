@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'tech.luiscunha'
-version = '0.1'
+version = '0.2'
 
 java {
     sourceCompatibility = '21'
@@ -31,7 +31,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'io.projectreactor.tools:blockhound:1.0.8.RELEASE'
-    implementation 'io.projectreactor.tools:blockhound:1.0.8.RELEASE'
 }
 
 tasks.named('test') {

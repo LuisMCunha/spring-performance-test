@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.ReactiveRedisOperations;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import tech.luiscunha.springwebfluxredis.pokemon.model.Pokemon;
 
 
@@ -22,6 +23,7 @@ public class RedisConfig {
 
 		RedisSerializationContext<String, Pokemon> context =
 				builder
+						.key(new StringRedisSerializer())
 						.value(serializer)
 						.build();
 

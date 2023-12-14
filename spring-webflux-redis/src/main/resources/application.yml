@@ -30,7 +30,9 @@ spring:
       port: ${REDIS_PORT:6379}
       password:
 server:
-  port: ${PORT:8084}
+  port: ${PORT:8086}
   error:
     include-stacktrace: always
     include-message: always
+app:
+  key-prefix: ${KEY_PREFIX:WEBFLUX:JVM:}

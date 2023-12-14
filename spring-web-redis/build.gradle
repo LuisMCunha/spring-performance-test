@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'tech.luiscunha'
-version = '0.1'
+version = '0.2'
 
 java {
     sourceCompatibility = '21'
@@ -26,7 +26,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

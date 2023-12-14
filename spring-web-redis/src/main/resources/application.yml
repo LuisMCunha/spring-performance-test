@@ -40,3 +40,5 @@ server:
   error:
     include-stacktrace: always
     include-message: always
+app:
+  key-prefix: ${KEY_PREFIX:WEB:JVM:VIRTUAL:}
