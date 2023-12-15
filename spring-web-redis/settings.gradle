@@ -1,1 +1,1 @@
-rootProject.name = 'spring-web-redis-native-virtual-threads'
+rootProject.name = 'spring-web-redis-jvm-virtual-threads'
