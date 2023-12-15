@@ -1,11 +1,23 @@
 version: "3.8"
+
+## Different image versions were built for the following test cases
+# Web:
+# version 0.1 -> 10 Tomcat thread limit + no fixed delay added to requests
+# version 0.2 -> 10 Tomcat thread limit + 300ms fixed delay added to requests
+# version 0.3 -> no thread limit + 300ms fixed delay added to requests
+
+# WebFlux:
+# version 0.1 -> no fixed delay added to requests
+# version 0.2 -> 300ms fixed delay added to requests
+
 services:
-  # this is the jvm image, available after running "bootBuildImage" gradle task
-  web-api-jvm:
-    container_name: web-api-jvm-virtual-threads
-    image: luismcunha/spring-web-redis-jvm:0.1
+  # this is a jvm image, available after running "bootBuildImage" gradle task
+  web-jvm:
+    container_name: web-jvm-virtual-threads
+    image: luismcunha/spring-web-redis-jvm-virtual-threads:0.1
     environment:
       PORT: 8080
+      KEY_PREFIX: 'WEB:JVM:VIRTUAL:'
       REDIS_HOST: redis-db
       REDIS_PORT: 6379
     ports:
@@ -18,11 +30,12 @@ services:
       - spring-redis-network
     depends_on:
       - redis-db
-  # this is the graalvm native image, available after running "bootBuildImage" gradle task
-  web-api-native:
-    container_name: web-api-native-virtual-threads
-    image: luismcunha/spring-web-redis-native:0.1
+  # this is a graalvm native image, available after running "bootBuildImage" gradle task
+  web-native:
+    container_name: web-native-virtual-threads
+    image: luismcunha/spring-web-redis-native-virtual-threads:0.1
     environment:
+      KEY_PREFIX: 'WEB:NATIVE:VIRTUAL:'
       PORT: 8081
       REDIS_HOST: redis-db
       REDIS_PORT: 6379
@@ -37,11 +50,12 @@ services:
     depends_on:
       - redis-db
 
-  # this is the jvm image, available after running "bootBuildImage" gradle task
-  web-api-jvm-os-threads:
-    container_name: web-api-jvm-os-threads
+  # this is a jvm image, available after running "bootBuildImage" gradle task
+  web-jvm-os-threads:
+    container_name: web-jvm-os-threads
     image: luismcunha/spring-web-redis-jvm-os-threads:0.1
     environment:
+      KEY_PREFIX: 'WEB:JVM:OS:'
       PORT: 8082
       REDIS_HOST: redis-db
       REDIS_PORT: 6379
@@ -55,11 +69,12 @@ services:
       - spring-redis-network
     depends_on:
       - redis-db
-  # this is the native image, available after running "bootBuildImage" gradle task
-  web-api-native-os-threads:
-    container_name: web-api-native-os-threads
+  # this is a native image, available after running "bootBuildImage" gradle task
+  web-native-os-threads:
+    container_name: web-native-os-threads
     image: luismcunha/spring-web-redis-native-os-threads:0.1
     environment:
+      KEY_PREFIX: 'WEB:NATIVE:OS:'
       PORT: 8083
       REDIS_HOST: redis-db
       REDIS_PORT: 6379
@@ -73,11 +88,12 @@ services:
       - spring-redis-network
     depends_on:
       - redis-db
-  # this is the jvm image, available after running "bootBuildImage" gradle task
-  webflux-api-jvm:
-    container_name: webflux-api-jvm
+  # this is a jvm image, available after running "bootBuildImage" gradle task
+  webflux-jvm:
+    container_name: webflux-jvm
     image: luismcunha/spring-webflux-redis-jvm:0.1
     environment:
+      KEY_PREFIX: 'WEBFLUX:JVM:'
       PORT: 8084
       REDIS_HOST: redis-db
       REDIS_PORT: 6379
@@ -91,11 +107,12 @@ services:
       - spring-redis-network
     depends_on:
       - redis-db
-  # this is the graalvm native image, available after running "bootBuildImage" gradle task
-  webflux-api-native:
-    container_name: webflux-api-native
+  # this is a graalvm native image, available after running "bootBuildImage" gradle task
+  webflux-native:
+    container_name: webflux-native
     image: luismcunha/spring-webflux-redis-native:0.1
     environment:
+      KEY_PREFIX: 'WEBFLUX:NATIVE:'
       PORT: 8085
       REDIS_HOST: redis-db
       REDIS_PORT: 6379
